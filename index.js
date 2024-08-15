@@ -94,13 +94,19 @@ let subscriptions = [
    * C:
    * E:
    */
+  //parameter is the subscriptions array of objects
   let cancelSubscriptions = function(arrayOfSubObj){
+    //return the arrayofsubObj calling the map method, taking in the current value and index
     return arrayOfSubObj.map( (currentValue, i) => {
+      //if the index is divisible by 2 or the index is 0
       if( i % 2 === 0 || i === 0 ){
+        //if the current values cost is more than 10
         if( currentValue.costPerMonth >= 10 ){
+          //set the current values cancel property to true
         currentValue.cancel = true;
         }
       }
+      //return the current value
       return currentValue;
     })
   };
@@ -136,10 +142,13 @@ C: use reduce
 E:
    */
   
-  
+  //set array of subscription objects as parameter
   let subscriptionList = function(arrayOfSubObj){
+    //return the parameter calling the reduce method, taking in a return string and the current value
    return arrayOfSubObj.reduce( (returnString, currentValue) => {
-          return returnString += currentValue.name + ' - ' + currentValue.costPerMonth + '\n'
+    //return a concatenated string that has the current values name, a dash, cost per month, and a new line
+          return returnString += `${currentValue.name} - ${currentValue.costPerMonth}\n`
+          //seed is an empty string
    }, "")
   };
   
@@ -164,20 +173,26 @@ C: use recursion
 E: object returned must match the input name
 
    */
-  
+  //parameters are an array, a name, and defaulted index to 0, and defaulted newObj to null properties
   let getSubscriptionObject = function(array, name, i = 0, newObj = { name: null, costPerMonth: null } ){
    //base
   console.log(i)
+  //if the array key value of name at the current index matches the name
    if(array[i].name === name){
+    //reassign the default param object to the current index name
     newObj["name"] = array[i].name ;
+    //do the same for cost per month
     newObj['costPerMonth'] = array[i].costPerMonth;
+    //return the new obj
     return newObj;
+    //if the index is equal to the length of the array minus 1 and the array current value is not equal to the name
    } else if( i === array.length - 1 && array[i].name !== name ){
+    //return the default object
     return newObj;
    }
    //recursion
-   i += 1;
-   return getSubscriptionObject(array, name, i, newObj)
+   //call the function back with the index incremented by 1
+   return getSubscriptionObject(array, name, i += 1, newObj)
   };
   
   
@@ -218,10 +233,14 @@ updateSubscription(
    * E: each part of the subarray contains a property to update and a value to assign that property
    */
   
+  //function takes in 2 parameters, input object and array of arrays
   let updateSubscription = function(inputObj, arrayOfArrays){
-    for(let i = 0; i < arrayOfArrays.length; i++){
+    //loop through the length of the array of arrays
+    for(let i = 0; i < arrayOfArrays.length; i += 1){
+      //on each iteration, reassign the matching key property in the array of arrays to the value in the array of arrays
        inputObj[arrayOfArrays[i][0]] = arrayOfArrays[i][1];
      }
+     //return the input object
      return inputObj;
    };
   /////////////////////////////////////////////////////////////////
@@ -231,8 +250,12 @@ updateSubscription(
    * Create a function called `getMultipleUsers` that takes in one parameter - `array` - which represents an array of subscription objects.
    *  This function should use the native filter method to return a new array of only the subscriptions that have multiple users.
    */
+
+  //function takes in the subscriptions array of objects
   let getMultipleUsers = function(arrayOfSubObj){
+    //return the parameter calling the filter method, with the inner function taking in the current value
    return arrayOfSubObj.filter( (currentVal) => {
+    //return the current value ONLY if the length of the users key value is greater than 1
     return currentVal.users.length > 1
    })
   }; 
@@ -262,11 +285,17 @@ getUsersArray(subscriptions); // returns =>
 ```
 */
   
+//let the function take in the subscriptions array of objects
   let getUsersArray = function(arrayOfSubObj){
+    //return the parameter calling the map method, map method will take in the current value
    return arrayOfSubObj.map( (current) => {
+    //initialize a new object
     newObj = {};
+    //set its name to the current values name
     newObj["name"] = current.name;
+    //set its users to teh current values users
     newObj["users"] = current.users;
+    //return the new object
     return newObj;
    }
    )
