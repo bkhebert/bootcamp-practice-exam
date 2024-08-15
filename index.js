@@ -218,21 +218,23 @@ updateSubscription(
    * E: each part of the subarray contains a property to update and a value to assign that property
    */
   
-  let updateSubscription = function(inputObj, arrayOfArrays, i = 0){
-     for(let i = 0; i < arrayOfArrays.length; i + 1){
-        inputObj[arrayOfArrays[i][0]] = arrayOfArrays[i][1];
-      }
-      return inputObj;
-    };
-  
-  
-  {}
+  let updateSubscription = function(inputObj, arrayOfArrays){
+    for(let i = 0; i < arrayOfArrays.length; i++){
+       inputObj[arrayOfArrays[i][0]] = arrayOfArrays[i][1];
+     }
+     return inputObj;
+   };
   /////////////////////////////////////////////////////////////////
   // PROBLEM #5 ///////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////
-  
-  let getMultipleUsers = function(){
-   
+  /**
+   * Create a function called `getMultipleUsers` that takes in one parameter - `array` - which represents an array of subscription objects.
+   *  This function should use the native filter method to return a new array of only the subscriptions that have multiple users.
+   */
+  let getMultipleUsers = function(arrayOfSubObj){
+   return arrayOfSubObj.filter( (currentVal) => {
+    return currentVal.users.length > 1
+   })
   }; 
   
   
@@ -241,9 +243,33 @@ updateSubscription(
   /////////////////////////////////////////////////////////////////
   // PROBLEM #6 ///////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////
+  /*
+  Create a function called `getUsersArray` that takes in one parameter -
+   `array` which represents an array of subscription objects. 
+   This function should use the native map method to return 
+   a new array of objects that only contains 
+   the `name` property of the subscription and 
+   `users` property pointing to an array of the users.
+```
+getUsersArray(subscriptions); // returns => 
+[
+  { name: 'HBOMax', users: [ [Object], [Object] ] },
+  { name: 'Hulu', users: [ [Object] ] },
+  { name: 'Netflix', users: [ [Object], [Object], [Object] ] },
+  { name: 'Express VPN', users: [ [Object] ] },
+  { name: 'Adobe Premiere Pro', users: [ [Object] ] }
+]
+```
+*/
   
-  let getUsersArray = function(){
-   
+  let getUsersArray = function(arrayOfSubObj){
+   return arrayOfSubObj.map( (current) => {
+    newObj = {};
+    newObj["name"] = current.name;
+    newObj["users"] = current.users;
+    return newObj;
+   }
+   )
   };
   
   
